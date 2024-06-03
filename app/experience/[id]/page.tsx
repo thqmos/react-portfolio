@@ -20,7 +20,7 @@ export default function View() {
               }
         }
         getExperience();
-    }, [])
+    }, [params.id])
 
     async function deleteExperience(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
@@ -43,6 +43,7 @@ export default function View() {
                 <h1 className="mt-5 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Work Experience Detail</h1>
                 <a
                     href={"/"}
+                    key={workExperience._id}
                     className="mt-5 block max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                 >
                     <div className="flex flex-col items-center">
