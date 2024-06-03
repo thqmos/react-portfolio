@@ -31,9 +31,11 @@ export async function DELETE(request: NextRequest) {
   await connectDB();
   try {
     await WorkExperience.findByIdAndDelete(id);
+    console.log(id + "from try");
     return NextResponse.json({ message: "Experience deleted" }, { status: 200 });
   }
   catch (error) {
+    console.log(id + "from catch");
     return NextResponse.json({ success: false }, { status: 400 });
   }
   

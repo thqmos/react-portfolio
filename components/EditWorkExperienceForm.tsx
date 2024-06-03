@@ -2,20 +2,25 @@
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 
-function AddWorkExperience() {
+interface EditWorkExperienceFormProps {
+    id: string;
+    workExperience: any;
+}
+
+function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormProps) {
     const rows = 4;
     const router = useRouter();
 
     const [formData, setFormData] = useState({
-        companyName: "",
-        city: "",
-        state: "",
-        jobTitle: "",
-        startMonth: "",
-        startYear: "",
-        endMonth: "",
-        endYear: "",
-        description: ""
+        companyName: workExperience.companyName,
+        city: workExperience.city,
+        state: workExperience.state,
+        jobTitle: workExperience.jobTitle,
+        startMonth: workExperience.startMonth,
+        startYear: workExperience.startYear,
+        endMonth: workExperience.endMonth,
+        endYear: workExperience.endYear,
+        description: workExperience.description
     });
 
     function validateForm(): Boolean {
@@ -40,8 +45,8 @@ function AddWorkExperience() {
         if (!isValid) return;
 
         try {
-            const res = await fetch("/api/workExperience", {
-                method: "POST",
+            const res = await fetch(`/api/workExperience/${id}`, {
+                method: "PUT",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
@@ -64,7 +69,7 @@ function AddWorkExperience() {
         <>
             <form className="max-w-sm mx-auto mt-8" onSubmit={handleSubmit}>
                 <div className="flex flex-col items-center">
-                    <h1 className="block mb-2 font-xl text-gray-900 dark:text-white">Add Work Experience</h1>
+                    <h1 className="block mb-2 font-xl text-gray-900 dark:text-white">Edit Work Experience</h1>
                 </div>
 
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
@@ -133,4 +138,4 @@ function AddWorkExperience() {
     );
 }
 
-export default AddWorkExperience;
+export default EditWorkExperienceForm;
