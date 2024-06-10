@@ -4,36 +4,30 @@ import { useRouter } from "next/navigation";
 
 interface EditWorkExperienceFormProps {
     id: string;
-    workExperience: any;
+    project: any;
 }
 
-function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormProps) {
+function EditWorkExperienceForm({ id, project }: EditWorkExperienceFormProps) {
     const rows = 4;
     const router = useRouter();
 
     const [formData, setFormData] = useState({
-        companyName: workExperience.companyName,
-        city: workExperience.city,
-        state: workExperience.state,
-        jobTitle: workExperience.jobTitle,
-        startMonth: workExperience.startMonth,
-        startYear: workExperience.startYear,
-        endMonth: workExperience.endMonth,
-        endYear: workExperience.endYear,
-        description: workExperience.description
+        title: project.title,
+        associatedWith: project.associatedWith,
+        startMonth: project.startMonth,
+        startYear: project.startYear,
+        endMonth: project.endMonth,
+        endYear: project.endYear,
+        description: project.description
     });
 
     function validateForm(): Boolean {
-        if (formData.companyName === "") {
-            alert("Please enter a company name.");
-            return false;
-        }
-        if (formData.jobTitle === "") {
-            alert("Please enter your job title at the company.");
+        if (formData.title === "") {
+            alert("Please enter a title.");
             return false;
         }
         if (formData.startYear === "") {
-            alert("Please enter the year you started the work.");
+            alert("Please enter the year you started the project.");
             return false;
         }
         return true;
@@ -45,7 +39,7 @@ function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormPr
         if (!isValid) return;
 
         try {
-            const res = await fetch(`/api/workExperience/${id}`, {
+            const res = await fetch(`/api/projects/${id}`, {
                 method: "PUT",
                 headers: {
                     Accept: "application/json",
@@ -58,7 +52,7 @@ function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormPr
                 router.push("/");
                 router.refresh();
             } else {
-                throw new Error("Failed to edit the work experience");
+                throw new Error("Failed to edit the project");
             }
         } catch (error) {
             console.log(error);
@@ -69,20 +63,14 @@ function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormPr
         <>
             <form className="max-w-sm mx-auto mt-8" onSubmit={handleSubmit}>
                 <div className="flex flex-col items-center">
-                    <h1 className="block mb-2 font-xl text-gray-900 dark:text-white">Edit Work Experience</h1>
+                    <h1 className="block mb-2 font-xl text-gray-900 dark:text-white">Edit Project</h1>
                 </div>
 
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
-                <input value={formData.companyName} onChange={(e) => setFormData({ ...formData, companyName: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company Name" required />
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                <input value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Title" required />
 
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                <input value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="City" />
-
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-                <input value={formData.state} onChange={(e) => setFormData({ ...formData, state: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="State" />
-
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job Title</label>
-                <input value={formData.jobTitle} onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Title you held.." required />
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Associated With?</label>
+                <input value={formData.associatedWith} onChange={(e) => setFormData({ ...formData, associatedWith: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Associated With" />
 
                 <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="relative z-0 w-full group">

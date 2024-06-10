@@ -1,0 +1,23 @@
+import connectDB from "@/libs/mongodb";
+import Project from "@/models/Project";
+import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+
+interface Params {
+    id: string;
+  }
+
+export async function PUT(request: NextRequest, { params }: { params: Params }) {
+  const { id } = params;
+  const req = await request.json();
+  await connectDB();
+  await Project.findByIdAndUpdate(id, req);
+  return NextResponse.json({ message: "Project updated" }, { status: 200 });
+}
+
+export async function GET(request: NextRequest, { params }: { params: Params }) {
+  const { id } = params;
+  await connectDB();
+  const project = await Project.findOne({ _id: id });
+  return NextResponse.json({ project }, { status: 200 });
+}
