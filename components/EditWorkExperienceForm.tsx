@@ -20,7 +20,8 @@ function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormPr
         startYear: workExperience.startYear,
         endMonth: workExperience.endMonth,
         endYear: workExperience.endYear,
-        description: workExperience.description
+        description: workExperience.description,
+        hoverColor: workExperience.hoverColor
     });
 
     function validateForm(): Boolean {
@@ -132,6 +133,33 @@ function EditWorkExperienceForm({ id, workExperience }: EditWorkExperienceFormPr
                 </div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                 <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} id="message" rows={rows} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5" placeholder="Description"></textarea>
+
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hover Color</label>
+                <select value={formData.hoverColor} onChange={(e) => setFormData({ ...formData, hoverColor: e.target.value })} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="hover:bg-red-600">Red</option>
+                    <option value="hover:bg-orange-600">Orange</option>
+                    <option value="hover:bg-amber-600">Amber</option>
+                    <option value="hover:bg-yellow-600">Yellow</option>
+                    <option value="hover:bg-lime-600">Lime</option>
+                    <option value="hover:bg-green-600">Green</option>
+                    <option value="hover:bg-emerald-600">Emerald</option>
+                    <option value="hover:bg-teal-600">Teal</option>
+                    <option value="hover:bg-cyan-600">Cyan</option>
+                    <option value="hover:bg-sky-600">Sky Blue</option>
+                    <option value="hover:bg-blue-600">Blue</option>
+                    <option value="hover:bg-indigo-600">Indigo</option>
+                    <option value="hover:bg-violet-600">Violet</option>
+                    <option value="hover:bg-purple-600">Purple</option>
+                    <option value="hover:bg-fuchsia-600">Fuchsia</option>
+                    <option value="hover:bg-pink-600">Pink</option>
+                    <option value="hover:bg-rose-600">Rose</option>
+                    <option value="hover:bg-slate-600">Slate</option>
+                    <option value="hover:bg-gray-600">Gray</option>
+                    <option value="hover:bg-zinc-600">Zinc</option>
+                    <option value="hover:bg-neutral-600">Neutral</option>
+                    <option value="hover:bg-neutral-600">Neutral</option>
+                    <option value="hover:bg-stone-600">Stone</option>
+                </select>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
             </form>
         </>

@@ -9,6 +9,7 @@ const projectSchema = new Schema (
         endMonth: String,
         endYear: String,
         description: String,
+        hoverColor: String,
     },
     {
         timestamps: true
