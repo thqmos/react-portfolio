@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRouter} from "next/navigation";
 import { useEffect, useState } from "react";
+import { signOut } from "next-auth/react";
 
 export default function Home() {
 
@@ -9,6 +10,7 @@ export default function Home() {
   const router = useRouter();
   const [workExperiences, setWorkExperiences] = useState<any[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
+  
 
 
   useEffect(() => {
@@ -40,6 +42,12 @@ export default function Home() {
     <>
       <div className="flex flex-col items-center">
       <h1 className="mb-2 mt-5 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Nathan Wessel</h1>
+      <button
+          onClick={() => signOut()}
+          className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
+        >
+          Log Out
+        </button>
       <h1 className="mb-2 mt-5 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Work Experience</h1>
         {workExperiences.map(work => (
           <a
