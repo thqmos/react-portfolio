@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter} from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
 
@@ -10,9 +11,8 @@ export default function Home() {
   const router = useRouter();
   const [workExperiences, setWorkExperiences] = useState<any[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
+  const { data: session } = useSession();
   
-
-
   useEffect(() => {
     async function fetchData() {
       //Work experience stuff
@@ -41,14 +41,17 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center">
-      <h1 className="mb-2 mt-5 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Nathan Wessel</h1>
-      <button
-          onClick={() => signOut()}
-          className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
-        >
-          Log Out
-        </button>
-      <h1 className="mb-2 mt-5 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Work Experience</h1>
+        <h1 className="mb-2 mt-5 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Nathan Wessel</h1>
+        {session && (
+          <button
+            onClick={() => signOut()}
+            className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
+          >
+            Log Out
+          </button>
+        )
+        }
+        <h1 className="mb-2 mt-5 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Work Experience</h1>
         {workExperiences.map(work => (
           <a
             href={`/experience/${work._id}`}
@@ -63,7 +66,9 @@ export default function Home() {
             </div>
           </a>
         ))}
-        <button onClick={() => router.push("/experience")} className="mt-2 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Work Experience</button>
+        {session && (
+          <button onClick={() => router.push("/experience")} className="mt-2 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Work Experience</button>
+        )}
         <h1 className="mb-2 mt-10 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Projects</h1>
         {projects.map(project => (
           <a
@@ -79,7 +84,9 @@ export default function Home() {
             </div>
           </a>
         ))}
-        <button onClick={() => router.push("/projects")} className="mt-2 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Project</button>
+        {session && (
+          <button onClick={() => router.push("/projects")} className="mt-2 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Project</button>
+        )}  
       </div>
     </>
   );
